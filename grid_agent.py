@@ -160,20 +160,29 @@ class BfsAgent:
                 self.position = self.parents[self.position]
                 if self.position == self.grid.start:
                     finished = True
-                    print('SHORTEST PATH: ')
-                    for pos in self.shortest_path:
-                        print(pos)
+
+def int_input_with_limits(min: int, max: int, prompt: str)->int:
+    valid_input = False
+    entry = 0
+    while not valid_input:
+        entry = int(input(prompt))
+        valid_input = min <= entry <= max
+        if not valid_input:
+            print(f'Invalid input! Must be integer between {min} and {max}.')
+    return entry
+
+
 
 def user_input_grid()->Grid:
     """Get input via command line for grid dimensions, start position and goal position."""
-    width = int(input('Enter grid width: '))
-    height = int(input('Enter grid height: '))
+    width = int_input_with_limits(0, 50, 'Enter grid width: ')
+    height = int_input_with_limits(0, 50, 'Enter grid height: ')
     dimensions = Dimensions(width, height)
-    start_x = int(input('Enter starting x coordinate: '))
-    start_y = int(input('Enter starting y coordinate: '))
+    start_x = int_input_with_limits(0, dimensions.width-1, 'Enter starting x coordinate: ')
+    start_y = int_input_with_limits(0, dimensions.height-1, 'Enter starting y coordinate: ')
     start = Position(start_x, start_y)
-    goal_x = int(input('Enter goal x coordinate: '))
-    goal_y = int(input('Enter goal y coordinate: '))
+    goal_x = int_input_with_limits(0, dimensions.width-1, 'Enter goal x coordinate: ')
+    goal_y = int_input_with_limits(0, dimensions.height-1, 'Enter goal y coordinate: ')
     goal = Position(goal_x, goal_y)
     done_walls = False
     walls: list[Position] = []
@@ -197,10 +206,22 @@ def generate_random()->tuple[Dimensions, Position, Position]:
 def hard_coded_grid()->Grid:
     walls = [
         Position(5,6), 
-        Position(6,7), 
-        Position(6,7), 
-        Position(6,7), 
+        Position(6,14), 
+        Position(17,12), 
+        Position(16,12), 
+        Position(15,12), 
+        Position(14,12), 
+        Position(13,12), 
+        Position(13,13), 
+        Position(13,14), 
+        Position(13,15), 
+        Position(13,16), 
+        Position(13,17), 
+        Position(13,18), 
+        Position(13,19), 
+        Position(13,19), 
+        Position(19,18), 
         Position(8,9),
         Position(6,4), 
         ]
-    return Grid(Dimensions(20, 20), Position(2,3), Position(7,8), walls)
+    return Grid(Dimensions(20, 20), Position(2,3), Position(16,18), walls)

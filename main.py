@@ -7,25 +7,27 @@
 # 2D arrays. The assignment focuses on building a modular and structured program
 # through step-by-step process.
 
+
+
 import time
-import agent_module
+import grid_agent
 import os
 
-def print_stats(agent: agent_module.BfsAgent)->None:
+def print_stats(agent: grid_agent.BfsAgent)->None:
             print('AGENT POSITION: ', agent.position)
-            print('visited: ', len(set(agent.visited)), f' (marked in {agent_module.COLOR_VISITED}green{agent_module.COLOR_NORM})')
-            print('queue: ', len(set(agent.queue)), f' (marked  in {agent_module.COLOR_QUEUE}blue{agent_module.COLOR_NORM})')
-            print('optimal path steps: ', len((agent.shortest_path)), f' (marked  in {agent_module.COLOR_PATH}red{agent_module.COLOR_NORM})')
+            print('visited: ', len(set(agent.visited)), f' (marked in {grid_agent.COLOR_VISITED}green{grid_agent.COLOR_NORM})')
+            print('queue: ', len(set(agent.queue)), f' (marked  in {grid_agent.COLOR_QUEUE}blue{grid_agent.COLOR_NORM})')
+            print('optimal path steps: ', len((agent.shortest_path)), f' (marked  in {grid_agent.COLOR_PATH}red{grid_agent.COLOR_NORM})')
 
 
 if __name__ == '__main__':
 
-    grid = agent_module.hard_coded_grid()
-    print(f"Welcome to Will Lapinel's {agent_module.COLOR_VISITED}BFS Simulator!{agent_module.COLOR_NORM}")
+    grid = grid_agent.hard_coded_grid()
+    print(f"Welcome to Will Lapinel's {grid_agent.COLOR_VISITED}BFS Simulator!{grid_agent.COLOR_NORM}")
     custom = input('Customize settings? "Y" (any other key to use default settings)? ')
     if custom.lower() == 'y':
-         grid = agent_module.user_input_grid()
-    agent = agent_module.BfsAgent()
+         grid = grid_agent.user_input_grid()
+    agent = grid_agent.BfsAgent()
     grid.add_agent(agent)
     max_iterations=1000
     print("\033[?25l", end="")
@@ -46,7 +48,7 @@ if __name__ == '__main__':
         grid.move_agents()
         print_stats(agent)
         grid.render()
-        time.sleep(0.2)
+        time.sleep(0.1)
     print('Max iterations reached.')
 
 
